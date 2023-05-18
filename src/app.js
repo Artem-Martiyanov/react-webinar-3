@@ -42,7 +42,7 @@ function App({store}) {
       <Head title="Магазин"/>
       <div className="PageLayout-subHeader">
         <p>В корзине:</p>
-        <Total sum={calculateSumOfPrice(cart)} countOfItems={cart.length}/>
+        <Total sum={calculateSumOfPrice(cart)} countOfItems={cart.length || null}/>
         <Controls onOpen={callbacks.onModalToggle}/>
       </div>
       <List list={list} handlers={{

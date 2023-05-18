@@ -22,7 +22,7 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
  * @param list {Array}}
  * @returns {Number}
  */
-export const calculateSumOfPrice = (list) => parseFloat((list.reduce((acc, item) => item?.price * item?.count + acc, 0)).toFixed(2))
+export const calculateSumOfPrice = (list) => list.length ? parseFloat((list.reduce((acc, item) => item?.price * item?.count + acc, 0)).toFixed(2)) : null
 
 /**
  * Сумматор количества товаров из массива товаров
