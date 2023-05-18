@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Modal({isVisible = false, children, onClose}) {
-  console.log('modal')
   return !isVisible ? null : (
     <div className={'Modal'} onClick={onClose}>
       <div className={'Modal-inner'} onClick={event => event.stopPropagation()}>

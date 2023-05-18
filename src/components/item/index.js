@@ -5,7 +5,6 @@ import {cn as bem} from '@bem-react/classname';
 
 
 function Item(props) {
-  console.log('item')
   
   const cn = bem('Item');
   
