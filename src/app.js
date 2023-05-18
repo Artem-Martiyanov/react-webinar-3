@@ -1,8 +1,11 @@
-import React, {useCallback} from 'react';
-import List from "./components/list";
-import Controls from "./components/controls";
-import Head from "./components/head";
-import PageLayout from "./components/page-layout";
+import React, {useCallback, useMemo, useState} from 'react';
+import List from './components/list';
+import Controls from './components/controls';
+import Head from './components/head';
+import PageLayout from './components/page-layout';
+import Modal from './components/modal';
+import Total from './components/total';
+import {calculateSumOfPrice} from './utils'
 
 /**
  * Приложение
@@ -10,30 +13,63 @@ import PageLayout from "./components/page-layout";
  * @returns {React.ReactElement}
  */
 function App({store}) {
-
+  
+  const [modalVisibility, setModalVisibility] = useState(false)
   const list = store.getState().list;
-
+  const cart = store.getState().cart
+  
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
-
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    
+    onDeleteItemFromCart: useCallback((code) => {
+      store.deleteItemFromCart(code);
     }, [store]),
-
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
+    }, [store]),
+    
+    onModalToggle: useCallback(() => {
+      setModalVisibility(prev => !prev)
+    }, []),
   }
-
+  
+  
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
-      <List list={list}
-            onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+      <Head title="Магазин"/>
+      <div className="PageLayout-subHeader">
+        <p>В корзине:</p>
+        <Total sum={calculateSumOfPrice(cart)} countOfItems={cart.length}/>
+        <Controls onOpen={callbacks.onModalToggle}/>
+      </div>
+      <List list={list} handlers={{
+        onAddItem: callbacks.onAddToCart,
+      }}
+      />
+      <Modal isVisible={modalVisibility} onClose={callbacks.onModalToggle}>
+        <Head title={'Корзина'}>
+          <button onClick={callbacks.onModalToggle}>Закрыть</button>
+        </Head>
+        <div className="Modal-content">
+          {!cart.length > 0 ?
+            <h2 className="Modal-empty">Пока пусто :(</h2>
+            :
+            <>
+              <List list={cart} handlers={{
+                onDeleteItem: callbacks.onDeleteItemFromCart,
+              }}
+              />
+              <div className="Modal-total">
+                <div className="Modal-amount">Итого</div>
+                <Total sum={calculateSumOfPrice(cart)}/>
+              </div>
+            </>
+          }
+        </div>
+      </Modal>
     </PageLayout>
   );
 }

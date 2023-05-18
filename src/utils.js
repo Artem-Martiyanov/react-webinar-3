@@ -16,6 +16,22 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
   return variants[key] || '';
 }
 
+
+/**
+ * Сумматор цен из массива товаров
+ * @param list {Array}}
+ * @returns {Number}
+ */
+export const calculateSumOfPrice = (list) => parseFloat((list.reduce((acc, item) => item?.price * item?.count + acc, 0)).toFixed(2))
+
+/**
+ * Сумматор количества товаров из массива товаров
+ * @param list {Array}}
+ * @returns {Number}
+ */
+export const calculateCountOfItems = (list) => list.reduce((acc, item) => item?.count + acc, 0)
+
+
 /**
  * Генератор чисел с шагом 1
  * Вариант с замыканием на начальное значение в самовызываемой функции.
@@ -37,6 +53,7 @@ export const generateCode1 = (function (start = 0) {
       yield ++start;
     }
   }
+  
   const gen = realGenerator(start);
   return () => gen.next().value;
 }());

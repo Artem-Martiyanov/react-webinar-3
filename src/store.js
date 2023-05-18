@@ -1,5 +1,3 @@
-import {generateCode} from "./utils";
-
 /**
  * Хранилище состояния приложения
  */
@@ -8,7 +6,7 @@ class Store {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
   }
-
+  
   /**
    * Подписка слушателя на изменения состояния
    * @param listener {Function}
@@ -21,7 +19,7 @@ class Store {
       this.listeners = this.listeners.filter(item => item !== listener);
     }
   }
-
+  
   /**
    * Выбор состояния
    * @returns {Object}
@@ -29,7 +27,7 @@ class Store {
   getState() {
     return this.state;
   }
-
+  
   /**
    * Установка состояния
    * @param newState {Object}
@@ -37,19 +35,11 @@ class Store {
   setState(newState) {
     this.state = newState;
     // Вызываем всех слушателей
-    for (const listener of this.listeners) listener();
+    for (const listener of this.listeners) {
+      listener();
+    }
   }
-
-  /**
-   * Добавление новой записи
-   */
-  addItem() {
-    this.setState({
-      ...this.state,
-      list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    })
-  };
-
+  
   /**
    * Удаление записи по коду
    * @param code
@@ -61,7 +51,20 @@ class Store {
       list: this.state.list.filter(item => item.code !== code)
     })
   };
-
+  
+  
+  /**
+   * Удаление товара из корзины по коду
+   * @param code
+   */
+  deleteItemFromCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code)
+    })
+  };
+  
   /**
    * Выделение записи по коду
    * @param code
@@ -83,6 +86,25 @@ class Store {
       })
     })
   }
+  
+  /**
+   * Добавление в корзину по коду
+   */
+  addToCart(code) {
+    const currentItem = this.state.cart.find(item => item.code === code)
+    currentItem ?
+      currentItem.count++
+      :
+      this.state.cart.push({
+        ...this.state.list.find(item => item.code === code),
+        count: 1,
+        canDelete: true})
+    this.setState({
+      ...this.state,
+      cart: [...this.state.cart]
+    })
+  }
+  
 }
 
 export default Store;
