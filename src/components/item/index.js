@@ -5,16 +5,15 @@ import {cn as bem} from '@bem-react/classname';
 
 
 function Item(props) {
-  
   const cn = bem('Item');
   
   const callbacks = {
     onAdd: () => {
-      props.handlers.onAddItem(props.item.code)
+      props.handler(props.item.code)
     },
     onDelete: (e) => {
       e.stopPropagation();
-      props.handlers.onDeleteItem(props.item.code);
+      props.handler(props.item.code);
     }
   }
   

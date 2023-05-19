@@ -23,4 +23,4 @@ Modal.defaultProps = {
   }
 }
 
-export default React.memo(Modal);
+export default Modal;

@@ -45,9 +45,7 @@ function App({store}) {
         <Total sum={calculateSumOfPrice(cart)} countOfItems={cart.length || null}/>
         <Controls onOpen={callbacks.onModalToggle}/>
       </div>
-      <List list={list} handlers={{
-        onAddItem: callbacks.onAddToCart,
-      }}
+      <List list={list} handler={callbacks.onAddToCart}
       />
       <Modal isVisible={modalVisibility} onClose={callbacks.onModalToggle}>
         <Head title={'Корзина'}>
@@ -58,9 +56,7 @@ function App({store}) {
             <h2 className="Modal-empty">Пока пусто :(</h2>
             :
             <>
-              <List list={cart} handlers={{
-                onDeleteItem: callbacks.onDeleteItemFromCart,
-              }}
+              <List list={cart} handler={callbacks.onDeleteItemFromCart}
               />
               <div className="Modal-total">
                 <div className="Modal-amount">Итого</div>

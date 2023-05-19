@@ -8,7 +8,7 @@ function List(props) {
     <div className="List">{
       props.list.map(item =>
         <div key={item.code} className="List-item">
-          <Item item={item} handlers={props.handlers}/>
+          <Item item={item} handler={props.handler}/>
         </div>
       )}
     </div>
@@ -17,7 +17,9 @@ function List(props) {
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
-    code: PropTypes.number
+    code: PropTypes.number,
+    title: PropTypes.string,
+    price: PropTypes.number
   })).isRequired,
 };
 
