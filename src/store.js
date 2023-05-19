@@ -89,22 +89,29 @@ class Store {
   
   /**
    * Добавление в корзину по коду
+   * @param code
    */
   addToCart(code) {
-    const currentItem = this.state.cart.find(item => item.code === code)
-    currentItem ?
-      currentItem.count++
+    const currentItemIndex = this.state.cart.findIndex(item => item.code === code)
+    // Копируем старую корзину
+    const newCart = [...this.state.cart]
+    
+    // Если в корзине есть итем с входным кодом, то итерируем его количество
+    currentItemIndex >= 0 ?
+      newCart[currentItemIndex].count++
       :
-      this.state.cart.push({
+      //Если в корзине такого итема нет, то добавляем его в новую корзину и модифицируем
+      newCart.push({
         ...this.state.list.find(item => item.code === code),
         count: 1,
-        canDelete: true})
+        canDelete: true
+      })
+    // Меняем старую корзину на новую
     this.setState({
       ...this.state,
-      cart: [...this.state.cart]
+      cart: newCart
     })
   }
-  
 }
 
 export default Store;
