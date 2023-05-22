@@ -56,8 +56,7 @@ function App({store}) {
             <h2 className="Modal-empty">Пока пусто :(</h2>
             :
             <>
-              <List list={cart} handler={callbacks.onDeleteItemFromCart}
-              />
+              <List list={cart} handler={callbacks.onDeleteItemFromCart}/>
               <div className="Modal-total">
                 <div className="Modal-amount">Итого</div>
                 <Total sum={calculateSumOfPrice(cart)}/>

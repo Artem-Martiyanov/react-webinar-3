@@ -13,7 +13,7 @@ function Total({sum, countOfItems}) {
         many: 'товаров'
       })}` : ''}
       {(countOfItems && sum !== null) ? ' / ' : ''}
-      {(sum !== null) ? `${sum} ₽` : 'пусто'}
+      {(sum !== null) ? `${sum.toLocaleString('ru-RU')} ₽` : 'пусто'}
     
     </div>
   )

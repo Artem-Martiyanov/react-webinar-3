@@ -20,11 +20,9 @@ function Item(props) {
   return (
     <div className={cn()}>
       <div className={cn('code')}>{props.item.code}</div>
-      <div className={cn('title')}>
-        {props.item.title}
-      </div>
+      <div className={cn('title')}>{props.item.title}</div>
       {props.item.price !== null &&
-        <span className={cn('price')}>{`${props.item.price} ₽`}</span>}
+        <span className={cn('price')}>{`${props.item.price.toLocaleString('ru-RU')} ₽`}</span>}
       {props.item.count &&
         <span className={cn('count')}>{`${props.item.count} шт`}</span>}
       <div className={cn('actions')}>
