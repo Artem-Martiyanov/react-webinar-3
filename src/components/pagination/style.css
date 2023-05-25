@@ -1,0 +1,24 @@
+.Pagination {
+  display: flex;
+  padding: 22px;
+  color: #cccccc;
+  justify-content: flex-end;
+}
+
+.Pagination-item {
+  border: none;
+  background: none;
+  font-size: 16px;
+  line-height: 1.15;
+  padding-bottom: 0;
+  color: #000000;
+}
+
+.Pagination-item:not(:disabled):hover {
+  background-color: #e1e1e1;
+}
+
+.Pagination-item:disabled {
+  background-color: #0087e9;
+  color: #ffffff;
+}

@@ -1,0 +1,13 @@
+.Navigation {
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.Navigation-link {
+  color: #0087e9;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
