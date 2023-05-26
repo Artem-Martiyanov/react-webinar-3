@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 import {createPagination} from '../../utils';
+import useTranslate from '../../store/use-translate';
 
 function Pagination({totalPages, currentPage, onChange}) {
   const cn = bem('Pagination');
   const onClick = (event) => {
     onChange(event.target.innerText)
   }
-  
   const pagination = createPagination(totalPages, currentPage, 1, 1)
   
   return (

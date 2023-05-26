@@ -12,6 +12,7 @@ import Navigation from '../../components/navigation';
 import {Routes, Route, useLocation} from 'react-router-dom';
 import Subheader from '../../components/subheader';
 import Product from '../../components/product';
+import LangSwitcher from '../../components/lang-switcher';
 import useTranslate from '../../store/use-translate';
 
 
@@ -27,6 +28,8 @@ function Main() {
     store.actions.catalog.load();
   }, []);
   
+  
+  
   const select = useSelector(state => ({
     product: state.catalog.product,
     list: state.catalog.list,
@@ -36,6 +39,7 @@ function Main() {
     sum: state.basket.sum,
   }));
   
+  const translate = useTranslate()
   
   const callbacks = {
     // Добавление в корзину
@@ -44,21 +48,22 @@ function Main() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Изменение страницы списка товаров
     changePage: useCallback(page => store.actions.catalog.setPage(+page), [store]),
+    // Изменение языка
+    changeLang: useCallback(lang => {
+      store.actions.language.setLanguage(lang)
+    }, [store])
   }
-  
   const renders = {
     item: useCallback((item) => {
       return <Item item={item} onAdd={callbacks.addToBasket}/>
     }, [callbacks.addToBasket]),
   };
   
-  const [translate, setLanguage] = useTranslate()
-  
   return (
     <PageLayout>
-      <button onClick={() => setLanguage('ENG')}>en</button>
-      
-      <Head title={select.product ? select.product.title : translate('Магазин')}/>
+      <Head title={select.product ? select.product.title : translate('Магазин')}>
+        <LangSwitcher onSelect={callbacks.changeLang}/>
+      </Head>
       <Subheader>
         <Navigation/>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>

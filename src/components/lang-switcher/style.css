@@ -1,0 +1,10 @@
+.LangSwitcher {
+  padding: 20px;
+}
+
+.LangSwitcher-control {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: 700;
+}

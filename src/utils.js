@@ -97,32 +97,3 @@ export const createPagination = (totalPages, currentPage, sideSize, middleSize) 
   
   return [...leftInterval, ...middleInterval, ...rightInterval]
 }
-
-
-/**
- * Функция переводчик по словарю
- * @description Возвращает перевеленное на переданный язык слово или оригинальное слово,
- *              если нет перевода, в параметр language передан null или неверный код языка
- * @param originalWord {String} Слово, которое нужно перевести
- * @param language {String | null} Слово, которое нужно перевести
- * @example translate('Морковь', 'ENG')   =>   carrot
- * @returns {String}
- */
-
-export const translate = (originalWord, language) => {
-  const dictionary = {
-    'ENG': {
-      'магазин': 'Shop',
-      'в корзине': 'Basket',
-      'пусто': 'is empty',
-    },
-    'DE': {
-      'магазин': 'Geschäft',
-      'в корзине': 'im Korb',
-      'пусто': 'leer',
-    },
-  }
-  const translatedWord = dictionary?.[language]?.[originalWord.trim().toLowerCase()]
-  
-  return language ? translatedWord ?? originalWord : originalWord
-}
