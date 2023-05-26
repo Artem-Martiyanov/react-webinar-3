@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -9,9 +9,10 @@ import useSelector from '../../store/use-selector';
 import Pagination from '../../components/pagination';
 import Navigation from '../../components/navigation';
 
-import {Routes, Route, Link, useMatch, useLocation} from 'react-router-dom';
+import {Routes, Route, useLocation} from 'react-router-dom';
 import Subheader from '../../components/subheader';
 import Product from '../../components/product';
+import useTranslate from '../../store/use-translate';
 
 
 function Main() {
@@ -36,7 +37,6 @@ function Main() {
   }));
   
   
-  // !useMatch('/') && store.actions.modals.close()
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
@@ -52,10 +52,13 @@ function Main() {
     }, [callbacks.addToBasket]),
   };
   
+  const [translate, setLanguage] = useTranslate()
   
   return (
     <PageLayout>
-      <Head title={select.product ? select.product.title : 'Магазин'}/>
+      <button onClick={() => setLanguage('ENG')}>en</button>
+      
+      <Head title={select.product ? select.product.title : translate('Магазин')}/>
       <Subheader>
         <Navigation/>
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum}/>
@@ -68,8 +71,6 @@ function Main() {
         />
         <Route path="/product/:id" element={<Product onAdd={callbacks.addToBasket}/>}/>
       </Routes>
-    
-    
     </PageLayout>
   );
 }
