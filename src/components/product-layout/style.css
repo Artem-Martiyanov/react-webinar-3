@@ -1,0 +1,15 @@
+.ProductLayout {
+  padding: 20px 40px;
+  font-size: 18px;
+  line-height: 1.15;
+}
+
+.ProductLayout-description {
+  margin: 0 0 20px;
+}
+
+.ProductLayout-price {
+  font-weight: 700;
+  font-size: 24px;
+  margin: 0 0 20px;
+}

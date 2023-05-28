@@ -22,13 +22,6 @@ class Catalog extends StoreModule {
     this.load()
   }
   
-  deleteProduct() {
-    this.setState({
-      ...this.getState(),
-      product: null
-    }, 'Товар удалён');
-  }
-  
   async load() {
     const currentPage = this.getState().currentPage
     const limit = 10
@@ -42,15 +35,6 @@ class Catalog extends StoreModule {
       list: json.result.items,
       pagesCount: pagesCount
     }, 'Загружены товары из АПИ');
-  }
-  
-  async loadProduct(id) {
-    const response = await fetch(`/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`);
-    const json = await response.json();
-    this.setState({
-      ...this.getState(),
-      product: json.result
-    }, 'Загружена информация о товаре');
   }
 }
 

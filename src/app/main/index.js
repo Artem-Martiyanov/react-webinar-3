@@ -29,7 +29,7 @@ function Main() {
   }, []);
   
   const select = useSelector(state => ({
-    product: state.catalog.product,
+    product: state.product.info,
     list: state.catalog.list,
     currentPage: state.catalog.currentPage,
     pagesCount: state.catalog.pagesCount,
@@ -72,7 +72,7 @@ function Main() {
           <Pagination totalPages={select.pagesCount} currentPage={select.currentPage} onChange={callbacks.changePage}/>
         </>}
         />
-        <Route path="/product/:id" element={<Product onAdd={callbacks.addToBasket}/>}/>
+        <Route path="/product/:id" element={<Product/>}/>
       </Routes>
     </PageLayout>
   );
