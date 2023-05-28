@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useState} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import Item from '../../components/item';
 import PageLayout from '../../components/page-layout';
 import Head from '../../components/head';
@@ -28,8 +28,6 @@ function Main() {
     store.actions.catalog.load();
   }, []);
   
-  
-  
   const select = useSelector(state => ({
     product: state.catalog.product,
     list: state.catalog.list,
@@ -55,7 +53,7 @@ function Main() {
   }
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} path={'product/'}/>
     }, [callbacks.addToBasket]),
   };
   

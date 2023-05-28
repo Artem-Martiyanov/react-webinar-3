@@ -12,6 +12,7 @@
   line-height: 1.15;
   padding-bottom: 0;
   color: #000000;
+  cursor: pointer;
 }
 
 .Pagination-item:not(:disabled):hover {
