@@ -1,11 +1,11 @@
-import StoreModule from "../module";
+import StoreModule from '../module';
 
 class Catalog extends StoreModule {
-
+  
   constructor(store, name) {
     super(store, name);
   }
-
+  
   initState() {
     return {
       currentPage: 1,
@@ -28,7 +28,7 @@ class Catalog extends StoreModule {
       product: null
     }, 'Товар удалён');
   }
-
+  
   async load() {
     const currentPage = this.getState().currentPage
     const limit = 10
@@ -38,8 +38,8 @@ class Catalog extends StoreModule {
     const json = await response.json();
     const pagesCount = Math.ceil(json.result.count / limit)
     this.setState({
-       ...this.getState(),
-       list: json.result.items,
+      ...this.getState(),
+      list: json.result.items,
       pagesCount: pagesCount
     }, 'Загружены товары из АПИ');
   }

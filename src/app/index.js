@@ -12,7 +12,6 @@ import useSelector from '../store/use-selector';
 function App() {
   let activeModal = useSelector(state => state.modals.name);
   
-  
   return (
     <>
       <Main/>
