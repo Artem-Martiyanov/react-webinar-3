@@ -13,14 +13,17 @@ function ModalLayout(props) {
   const frame = useRef();
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
-      // Центрирование frame или его прижатие к краю, если размеры больше чем у layout
-      layout.current.style.alignItems = (layout.current.clientHeight < frame.current.clientHeight)
-        ? 'flex-start'
-        : 'center';
-      layout.current.style.justifyContent = (layout.current.clientWidth < frame.current.clientWidth)
-        ? 'flex-start'
-        : 'center';
+      if (layout.current) {
+        // Центрирование frame или его прижатие к краю, если размеры больше чем у layout
+        layout.current.style.alignItems = (layout.current.clientHeight < frame.current.clientHeight)
+          ? 'flex-start'
+          : 'center';
+        layout.current.style.justifyContent = (layout.current.clientWidth < frame.current.clientWidth)
+          ? 'flex-start'
+          : 'center';
+      }
     });
+    
     // Следим за изменениями размеров layout
     resizeObserver.observe(layout.current);
     return () => {

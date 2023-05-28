@@ -11,7 +11,7 @@ import Navigation from '../../components/navigation';
 
 import {Routes, Route, useLocation} from 'react-router-dom';
 import Subheader from '../../components/subheader';
-import Product from '../../components/product';
+import Product from '../product';
 import LangSwitcher from '../../components/lang-switcher';
 import useTranslate from '../../store/use-translate';
 
